@@ -4,7 +4,8 @@ from discord.ext import commands
 
 API_URL = "https://kitsu.io/api/edge/"
 
-#this is shit but meh...
+# this is shit but meh...
+
 
 class Kitsu:
 
@@ -31,7 +32,8 @@ class Kitsu:
             embed.add_field(name="Age Rating",
                             value=anime["attributes"]["ageRating"])
             embed.add_field(name="Status", value=anime["attributes"]["status"])
-            thing = '' if not anime['attributes']['endDate'] else f' to {anime["attributes"]["endDate"]}'
+            thing = '' if not anime['attributes'][
+                'endDate'] else f' to {anime["attributes"]["endDate"]}'
             embed.add_field(
                 name="Aired", value=f"{anime['attributes']['startDate']}{thing}")
             embed.add_field(name="Episodes",
@@ -41,7 +43,7 @@ class Kitsu:
                 url=anime['attributes']["posterImage"]["original"])
 
             await ctx.send(embed=embed)
-            
+
 #######################################################################################################################
 
     @commands.command()
@@ -69,7 +71,8 @@ class Kitsu:
                 embed.add_field(name="Age Rating",
                                 value=manga["attributes"]["ageRating"])
             embed.add_field(name="Status", value=manga["attributes"]["status"])
-            thing = '' if not manga['attributes']['endDate'] else f' to {manga["attributes"]["endDate"]}'
+            thing = '' if not manga['attributes'][
+                'endDate'] else f' to {manga["attributes"]["endDate"]}'
             embed.add_field(
                 name="Published", value=f"{manga['attributes']['startDate']}{thing}")
             if manga['attributes']['chapterCount']:
