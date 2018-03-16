@@ -43,8 +43,7 @@ class Kitsu:
                 url=anime['attributes']["posterImage"]["original"])
 
             await ctx.send(embed=embed)
-
-                        ########################################
+            
 
     @commands.command()
     async def manga(self, ctx, query: str):
