@@ -29,7 +29,8 @@ class Help:
             embed = discord.Embed(title="Commands:",
                                   description=f"{help_text}")
             embed.set_footer(
-                text=f"Use `{ctx.prefix}help <command>` for more info on a command.", icon_url=ctx.author.avatar_url_as(format="png"))
+                text=f"Use `{ctx.prefix}help <command>` for more info on a command.", 
+                icon_url=ctx.author.avatar_url_as(format="png"))
 
             embed.add_field(name="For more help join the support server.",
                             value="https://discord.gg/EeqMvs")
@@ -39,7 +40,8 @@ class Help:
         else:
             embed = discord.Embed()
             embed.set_footer(
-                text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url_as(format="png"))
+                text=f"Requested by {ctx.author.name}", 
+                icon_url=ctx.author.avatar_url_as(format="png"))
             try:
                 sub = self.bot.get_command(cmds).commands
                 if not sub:
@@ -47,7 +49,8 @@ class Help:
                 else:
                     for cmd in sub:
                         embed.add_field(
-                            name=f"**{ctx.prefix}{cmd.signature}**", value=cmd.help.replace("%prefix%", ctx.prefix))
+                            name=f"**{ctx.prefix}{cmd.signature}**", 
+                            value=cmd.help.replace("%prefix%", ctx.prefix))
             except Exception:
                 command = self.bot.get_command(cmds)
                 if command.help:
@@ -62,7 +65,6 @@ class Help:
 
 def setup(bot):
     """Set up the extension."""
-    #following code is taken from Kitsuchan 2 by Foxo
     try:
         help_command = bot.all_commands["help"]
         help_command.hidden = True
@@ -72,4 +74,3 @@ def setup(bot):
     except KeyError:  # This means the setup already did its thing.
         pass
     bot.add_cog(Help(bot))
-
