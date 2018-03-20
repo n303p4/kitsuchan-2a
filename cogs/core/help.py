@@ -7,6 +7,7 @@ class Help:
 
     def __init__(self, bot):
         self.bot = bot
+
     @commands.command(aliases=["commands"])
     @commands.cooldown(1, 2)
     async def help(self, ctx, *, cmds: str=None):
@@ -28,7 +29,7 @@ class Help:
             embed = discord.Embed(title="Commands:",
                                   description=f"{help_text}")
             embed.set_footer(
-                text=f"Use {ctx.prefix}help <command> for more info on a command.",icon_url=ctx.author.avatar_url)
+                text=(f"Use {ctx.prefix}help <command> for more info on a command."), icon_url=ctx.author.avatar_url)
 
             embed.add_field(name="For more help join the support server.",
                             value="https://discord.gg/EeqMvs")
@@ -39,7 +40,7 @@ class Help:
             try:
                 embed = discord.Embed()
                 embed.set_footer(
-                    text=f"Requested by {ctx.author.name}", 
+                    text=f"Requested by {ctx.author.name}",
                     icon_url=ctx.author.avatar_url_as(format="png"))
                 try:
                     sub = self.bot.get_command(cmds).commands
@@ -48,7 +49,7 @@ class Help:
                     else:
                         for cmd in sub:
                             embed.add_field(
-                                name=f"**{ctx.prefix}{cmd.signature}**",value=cmd.help.replace("%prefix%",ctx.prefix))
+                                name=f"**{ctx.prefix}{cmd.signature}**", value=(cmd.help.replace("%prefix%", ctx.prefix)))
                 except Exception:
                     command = self.bot.get_command(cmds)
                     if command.help:
@@ -59,7 +60,7 @@ class Help:
                     embed.add_field(
                         name=f"**{ctx.prefix}{command.signature}**", value=helptxt)
                 await ctx.send(embed=embed)
-             except Exception:
+            except Exception:
                 await ctx.send("Command not found")
 
 
