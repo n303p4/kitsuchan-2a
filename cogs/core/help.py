@@ -28,8 +28,9 @@ class Help:
 
             embed = discord.Embed(title="Commands:",
                                   description=f"{help_text}")
+            text = f"Use {ctx.prefix}help <command> for more info on a command."
             embed.set_footer(
-                text=(f"Use {ctx.prefix}help <command> for more info on a command."), icon_url=(ctx.author.avatar_url))
+                text=text, icon_url=(ctx.author.avatar_url))
 
             embed.add_field(name="For more help join the support server.",
                             value="https://discord.gg/EeqMvs")
@@ -48,8 +49,9 @@ class Help:
                         return await ctx.send("Command not found")
                     else:
                         for cmd in sub:
+                            val = (cmd.help.replace("%prefix%", ctx.prefix))
                             embed.add_field(
-                                name=(f"**{ctx.prefix}{cmd.signature}**"), value=(cmd.help.replace("%prefix%", ctx.prefix)))
+                                name=(f"**{ctx.prefix}{cmd.signature}**"), value=val)
                 except Exception:
                     command = self.bot.get_command(cmds)
                     if command.help:
