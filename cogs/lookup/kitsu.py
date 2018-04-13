@@ -33,31 +33,31 @@ class KitsuIO:
         async with ctx.bot.session.get(url, params=params) as response:
             if response.status == 200:
                 data = await response.json(content_type="application/vnd.api+json")
-
-                if data.get("meta", {}).get("count"):
-                    attributes = data["data"][0]["attributes"]
-                    link = f"https://kitsu.io/{request_type}/{attributes['slug']}"
-                    titles = (f"{attributes['titles'].get('en', '???')} - "
-                              f"{attributes['titles'].get('en_jp', '???')}")
-
-                    embed = discord.Embed(title=titles,
-                                          url=link,
-                                          description=attributes.get("synopsis", "None"))
-
-                    for name, item in FIELDS.items():
-                        embed.add_field(name=name, value=attributes.get(item, "N/A"))
-
-                    if attributes.get("endDate"):
-                        embed.add_field(name="Finished", value=attributes["endDate"])
-                    try:
-                        embed.set_thumbnail(url=attributes["posterImage"]["original"])
-                    except KeyError:
-                        pass
-
-                    await ctx.send(embed=embed)
-
             else:
                 await ctx.send("Could not reach kitsu.io x.x")
+                return
+
+        if data.get("meta", {}).get("count"):
+            attributes = data["data"][0]["attributes"]
+            link = f"https://kitsu.io/{request_type}/{attributes['slug']}"
+            titles = (f"{attributes['titles'].get('en', '???')} - "
+                      f"{attributes['titles'].get('en_jp', '???')}")
+
+            embed = discord.Embed(title=titles,
+                                  url=link,
+                                  description=attributes.get("synopsis", "None"))
+
+            for name, item in FIELDS.items():
+                embed.add_field(name=name, value=attributes.get(item, "N/A"))
+
+            if attributes.get("endDate"):
+                embed.add_field(name="Finished", value=attributes["endDate"])
+            try:
+                embed.set_thumbnail(url=attributes["posterImage"]["original"])
+            except KeyError:
+                pass
+
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
