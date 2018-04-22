@@ -7,6 +7,7 @@ import urllib.parse
 
 import async_timeout
 import requests
+import discord
 from discord.ext import commands
 
 from k2.exceptions import WebAPIInvalidResponse, WebAPIUnreachable
@@ -68,6 +69,10 @@ def setup(bot):
                 message = f"Invalid type supplied. Valid types are: ```{', '.join(image_types)}```"
                 raise commands.UserInputError(message)
             else:
-                await ctx.send(response_content["url"])
+                embed = discord.Embed(title="Image link")
+                embed.url = response_content["url"]
+                embed.set_image(url=response_content["url"])
+                embed.set_footer(text="Powered by weeb.sh")
+                await ctx.send(embed=embed)
 
     bot.add_cog(WeebSH())
