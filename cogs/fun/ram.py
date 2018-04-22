@@ -58,8 +58,8 @@ def setup(bot):
         """Cog for interfacing weeb.sh"""
 
         @commands.command(aliases=image_types)
-        async def image(self, ctx, *, image_type: str = None):
-            """Fetch a random weeb.sh image. Allows direct alias usage."""
+        async def weeb(self, ctx, *, image_type: str = None):
+            """Fetch a random weeb.sh image. Can be used directly as an alias."""
             if not image_type:
                 image_type = ctx.invoked_with
             url = generate_image_query_url(image_type)
